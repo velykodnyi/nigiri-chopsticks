@@ -59,10 +59,10 @@ func NewRouter(config cfg.Config) *Router {
 			r.HandleFunc("/registry", r.HandleRegistryRequest).Methods(http.MethodPost, http.MethodOptions)
 		}
 
-		var numBlockToGenerate int = 1
-		if config.Chain() == "bitcoin" {
-			numBlockToGenerate = 101
-		}
+		var numBlockToGenerate int = 101
+		// if config.Chain() == "bitcoin" {
+		// 	numBlockToGenerate = 101
+		// }
 		status, blockHashes, err := r.Faucet.Fund(numBlockToGenerate)
 
 		for err != nil && strings.Contains(err.Error(), "Loading") && status == 500 {
